@@ -5,20 +5,15 @@ FROM ubuntu:18.04
 RUN apt-get update --fix-missing -y
 
 # install libgtk-3-0 x86_x64 libraries
-RUN apt-get install libgtk-3-0 -y
+RUN apt-get install libgtk-3-0 \
+    xserver-xorg-video-dummy \
+    -y
 
 # set noninteractive flag and install xdummy
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get -y install xserver-xorg-video-dummy
 
-# copy binary into container
-COPY peerconnection_client /usr/bin
-
-# copy x.org config file into container
-COPY dummy-1920x1080.conf /usr/bin
-
-# copy entry.sh into container and
-COPY entry.sh /usr/bin
+# copy binary and config into container
+COPY app/* /usr/bin/
 
 # set working directory
 WORKDIR /usr/bin
