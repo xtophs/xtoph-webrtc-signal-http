@@ -2,12 +2,11 @@
 
 cat > /usr/bin/webrtc.json << EOF 
 {
-    "stun": "stun:stun.l.google.com:19302",
     "signalingAddress": "${SIGNAL_SERVER_ADDRESS}",
     "signalingPort": ${PORT},
-    "relayAddress": "",
-    "relayUsername": "",
-    "relayPassword": ""
+    "relayAddress": "turn:${TURN_SERVER_ADDRESS}",
+    "relayUsername": "${TURN_USER_NAME}",
+    "relayPassword": "${TURN_PASSWORD}"
 }
 EOF
 
@@ -21,4 +20,4 @@ echo launching peerconnection_client
 # launch the webrtc peerconnection client
 DISPLAY=:0 ./peerconnection_client
 
-#./peerconnection_client
+./peerconnection_client
